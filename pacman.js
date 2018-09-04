@@ -84,8 +84,15 @@ function eatGhost(key) {
   if (ghosts[key-1]) {
     if (ghosts[key-1].edible === false) {
       lives -= 1
-      console.log('\n' + ghosts[key-1].name + ' that has the colour ' + ghosts[key-1].colour + ' is not edible!')
+      console.log('\n' + ghosts[key-1].name + ' that has the colour ' + ghosts[key-1].colour + ' is not edible!');
     }
+  }
+}
+
+function checkGameOver() {
+  if (lives < 0) {
+    console.log('Pac-Man has no more lives');
+    process.exit();
   }
 }
 
@@ -101,15 +108,19 @@ function processInput(key) {
       break;
     case '1':
       eatGhost(1);
+      checkGameOver();
       break;
     case '2':
       eatGhost(2);
+      checkGameOver();
       break;
     case '3':
       eatGhost(3);
+      checkGameOver();
       break;
     case '4':
       eatGhost(4);
+      checkGameOver();
       break;
     default:
       console.log('\nInvalid Command!');
