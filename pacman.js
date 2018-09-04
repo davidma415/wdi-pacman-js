@@ -68,7 +68,9 @@ function displayPowerPellets() {
 function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
-  console.log('(p) Eat Power-Pellet');
+  if (powerPellets > 0) {
+    console.log('(p) Eat Power-Pellet');
+  }
   for (var i = 0; i < ghosts.length; i++) {
     console.log('(' + (i+1) + ') ' + 'Eat ' + ghosts[i].name)
   }
@@ -103,12 +105,27 @@ function checkGameOver() {
   }
 }
 
+function eatPowerPellet() {
+  score += 50;
+  for (var i = 0; i < ghosts.length; i++) {
+    ghosts[i].edible = true;
+  }
+  powerPellets -= 1;
+}
+
 // Process Player's Input
 function processInput(key) {
   switch(key) {
     case '\u0003': // This makes it so CTRL-C will quit the program
     case 'q':
       process.exit();
+      break;
+    case 'p':
+      if (powerPellets > 0) {
+        eatPowerPellet();
+      } else {
+        console.log('\nNo Power-Pellets left!')
+      }
       break;
     case 'd':
       eatDot();
