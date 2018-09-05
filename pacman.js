@@ -92,8 +92,12 @@ function eatDot() {
 function eatGhost(key) {
   if (ghosts[key-1]) {
     if (ghosts[key-1].edible === false) {
-      lives -= 1
+      lives -= 1;
       console.log('\n' + ghosts[key-1].name + ' that has the colour ' + ghosts[key-1].colour + ' is not edible!');
+    } else {
+      score += 200;
+      console.log('\nPac-Man ate ' + ghosts[key-1].name + ' and has become ' + ghosts[key-1].character + '!')
+      ghosts[key-1].edible = false;
     }
   }
 }
@@ -169,7 +173,7 @@ drawScreen();
 stdin.on('data', function(key) {
   process.stdout.write(key);
   processInput(key);
-  setTimeout(drawScreen, 300); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
+  setTimeout(drawScreen, 900); // The command prompt will flash a message for 300 milliseoncds before it re-draws the screen. You can adjust the 300 number to increase this.
 });
 
 // Player Quits
